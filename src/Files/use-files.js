@@ -2,11 +2,17 @@ import { useEffect, useState } from 'react';
 import { getFiles } from '../api';
 
 export function useFiles() {
-  const [ files, setFiles ] = useState([]);
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    getFiles()
-      .then(files => setFiles(files));
+
+    /** Rewrote the .then() handler using await/async */
+    const fetchFiles = async () => {
+      const files = await getFiles();
+      setFiles(files)
+    };
+
+    fetchFiles();
   }, []);
 
   return files;

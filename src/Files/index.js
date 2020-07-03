@@ -20,15 +20,15 @@ const File = ({ file }) => {
 
       {/** Displays the name of the current version of the file and button for renaming */}
       <div className={styles.fileHeader}>
-        <strong>{file.versions[0].name}</strong>
+        <strong>📁 {file.versions[0].name}</strong>
         <button className={styles.renameBtn} onClick={onRename}>Rename</button>
       </div>
 
 
       {/** List of the previous versions of the file */}
       <ul>
-        {file.versions.map(version => (
-          <li key={version.id}>
+        {file.versions.map((version, index) => (
+          <li key={`${version.id}_${index}`}>
             {version.name}
           </li>
         ))}

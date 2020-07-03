@@ -45,17 +45,15 @@ export default function Files() {
 
   const files = useFiles();
   return (
-    <>
-      {/* TODO: Implement sort feature according to task (3) */}
-      <button>Sort A-Z/Z-A</button>
-
+    <div className={styles.fileContainer}>
       {/** Display the list of files */}
-      <div className={styles.fileList}>
-        {files.map(file => <File file={file} key={file.id} />)}
-      </div>
 
+
+      {/* TODO: Implement sort feature according to task (3) */}
+      < button > Sort A - Z / Z - A</button >
+      {files.map(file => <File file={file} key={file.id} />)}
 
       {/* TODO: Add a button to add a new file according to task (5) */}
-    </>
+    </div >
   );
 }

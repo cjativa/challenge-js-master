@@ -12,6 +12,9 @@ body {
     rgba(249, 249, 249, 1) 56%,
     rgba(244, 244, 247, 1) 100%
   );
+
+  display: flex;
+  justify-content: center;
 }
 
 code {

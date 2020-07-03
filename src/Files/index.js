@@ -35,9 +35,13 @@ const File = ({ file, triggerRenameRefresh }) => {
       <ul>
         {file.versions.map((version, index) => (
           <li className={styles.listItem} key={`${version.id}_${index}`}>
+
+            {/** Display the file name for this version */}
             <span>{version.name}</span>
+
+            {/** Indicate that this is the latest revision if it's the 0th element */}
             {(index === 0)
-              ? <span className={styles.latest}><em>    Latest revision</em></span>
+              ? <span className={styles.latest}><em>Latest revision</em></span>
               : ''}
           </li>
         ))}
@@ -55,7 +59,9 @@ export default function Files() {
   const [renamedOccurred, updateRenameOccurred] = useState(false);
   const [sortOrder, setSortOrder] = useState(ASCENDING);
 
-  useEffect(() => { if (renamedOccurred) updateRenameOccurred(false); }, [renamedOccurred]);
+  useEffect(() => {
+    if (renamedOccurred) updateRenameOccurred(false);
+  }, [renamedOccurred]);
 
   // List of files
   const files = useFiles(sortOrder, renamedOccurred);

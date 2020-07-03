@@ -30,9 +30,17 @@ export async function addFile(name) {
   // TODO: Implement this API to add a new file according to task (5).
 }
 
+/** Adds a new version to the version list of a file */
 export async function addVersion(fileId, name) {
   // TODO: Insert the new version on the beginning of the stack according to task (1)
+
+  // Find the file to add the version to
   const file = files.find(f => f.id === fileId);
+
+  // Increment the current version id for adding to the list
   const versionId = file.versions[file.versions.length - 1].id + 1;
-  file.versions.push({ id: versionId, name });
+
+  // Add the new version to the top of the stack instead of end
+  const newVersion = { id: versionId, name };
+  file.versions = [newVersion, ...file.versions]
 }

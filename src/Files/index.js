@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useFiles } from './use-files';
 import { addVersion } from '../api';
@@ -7,12 +7,14 @@ import styles from './index.module.css';
 
 // TODO: Improve the implementation of this component according to task (4)
 /** Component representing the File object */
-const File = ({ file }) => {
+const File = ({ file, triggerRenameRefresh }) => {
 
   /** Called when the "Rename" button is clicked, handles renaming an existing file */
-  const onRename = () => {
+  const onRename = async () => {
     const newName = window.prompt('Rename this file');
-    addVersion(file.id, newName);
+    await addVersion(file.id, newName);
+
+    triggerRenameRefresh();
   };
 
   return (
@@ -38,12 +40,26 @@ const File = ({ file }) => {
   );
 }
 
+/** Component rendering the list of files */
 export default function Files() {
-  // TODO: Replace this polling-like implementation according to task (2)
-  const [state, setState] = React.useState();
-  setInterval(() => setState(Math.random()), 1000);
 
+  // TODO: Replace this polling-like implementation according to task (2)
+  const [renamedOccurred, updateRename] = useState(false);
   const files = useFiles();
+
+  /** Trigerred when a file finishes executing a version rename and refreshes the file list */
+  const triggerRenameRefresh = () => updateRename(true);
+
+  /** Hook that listens for a save being trigged */
+  useEffect(() => {
+
+    // If a rename occurred, reset it back to default
+    if (renamedOccurred) {
+      updateRename(false);
+    }
+
+  }, [files]);
+
   return (
     <div className={styles.fileContainer}>
       {/** Display the list of files */}
@@ -51,7 +67,7 @@ export default function Files() {
 
       {/* TODO: Implement sort feature according to task (3) */}
       < button > Sort A - Z / Z - A</button >
-      {files.map(file => <File file={file} key={file.id} />)}
+      {files.map(file => <File file={file} key={file.id} triggerRenameRefresh={triggerRenameRefresh} />)}
 
       {/* TODO: Add a button to add a new file according to task (5) */}
     </div >

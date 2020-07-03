@@ -24,10 +24,10 @@ const File = ({ file, triggerRenameRefresh }) => {
       {/** Displays the name of the current version of the file and button for renaming */}
       <div className={styles.fileHeader}>
         <strong>
-          <span role="img" aria-label="">📁</span>
+          <span role="img" aria-label="">📁 </span>
           {currentFileVersionName}
         </strong>
-        <button className={styles.renameBtn} onClick={onRename}>Rename</button>
+        <button className={`${styles.renameBtn} ${styles.btn}`} onClick={onRename}>Rename</button>
       </div>
 
 
@@ -80,15 +80,15 @@ export default function Files() {
   };
 
   const sortButtonText = (sortOrder === ASCENDING)
-    ? "Sort Z - A" // Display text to sort descending when the sort order is ascending
-    : "Sort A - Z" // Display text to sort ascending when the sort order is descending
+    ? "Sort Z - A" // Text to sort descending when the sort order is presently   ascending
+    : "Sort A - Z" // Text to sort ascending when the sort order is presently descending
 
   return (
     <div className={styles.fileContainer}>
 
       {/* TODO: Implement sort feature according to task (3) */}
-      <button onClick={onSortClick}>
-        {sortButtonText}
+      <button className={`${styles.btn} ${styles.sortBtn}`} onClick={onSortClick}>
+        {sortButtonText} ↕️
       </button>
 
       {/** Display the list of files */}

@@ -10,12 +10,31 @@
   width: 300px;
 }
 
-.renameBtn {
-  background: #29b1cd;
-  color: white;
+.btn {
   border: none;
   padding: 10px 15px;
   border-radius: 8px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.sortBtn {
+  border: 1px solid #94dceb;
+  background: white;
+
+  color: #29b1cd;
+  font-weight: bold;
+}
+
+.renameBtn {
+  background: #29b1cd;
+  color: white;
+}
+
+.renameBtn:hover {
+  background: #047d96;
 }
 
 .listItem {
@@ -25,11 +44,6 @@
 
 .revisionNumber {
   font-size: 12px;
-}
-
-.renameBtn:hover {
-  background: #047d96;
-  cursor: pointer;
 }
 
 .fileContainer {

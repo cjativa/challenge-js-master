@@ -18,6 +18,15 @@
   border-radius: 8px;
 }
 
+.listItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.revisionNumber {
+  font-size: 12px;
+}
+
 .renameBtn:hover {
   background: #047d96;
   cursor: pointer;

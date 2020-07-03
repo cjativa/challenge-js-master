@@ -5,17 +5,18 @@ import { addVersion } from '../api';
 import { ASCENDING, DESCENDING } from '../constants/sortOrders';
 import styles from './index.module.css';
 
-// TODO: Improve the implementation of this component according to task (4)
 /** Component representing the File object */
 const File = ({ file, triggerRenameRefresh }) => {
 
   /** Called when the "Rename" button is clicked, handles renaming an existing file */
-  const onRename = async () => {
+  const onRename = () => {
     const newName = window.prompt('Rename this file');
-    await addVersion(file.id, newName);
+    addVersion(file.id, newName);
 
     triggerRenameRefresh();
   };
+
+  const currentFileVersionName = file.versions[0].name;
 
   return (
     <div className={styles.file}>
@@ -24,7 +25,7 @@ const File = ({ file, triggerRenameRefresh }) => {
       <div className={styles.fileHeader}>
         <strong>
           <span role="img" aria-label="">📁</span>
-          {file.versions[0].name}
+          {currentFileVersionName}
         </strong>
         <button className={styles.renameBtn} onClick={onRename}>Rename</button>
       </div>
@@ -33,12 +34,16 @@ const File = ({ file, triggerRenameRefresh }) => {
       {/** List of the previous versions of the file */}
       <ul>
         {file.versions.map((version, index) => (
-          <li key={`${version.id}_${index}`}>
-            {version.name}
+          <li className={styles.listItem} key={`${version.id}_${index}`}>
+            <span>{version.name}</span>
+            {(index === 0)
+              ? <span className={styles.latest}><em>    Latest revision</em></span>
+              : ''}
           </li>
         ))}
       </ul>
 
+      <span className={styles.revisionNumber}>Number of revisions {file.versions.length}</span>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useFiles } from './use-files';
 import { addVersion } from '../api';
-
+import { ASCENDING, DESCENDING } from '../constants/sortOrders';
 import styles from './index.module.css';
 
 // TODO: Improve the implementation of this component according to task (4)
@@ -43,31 +43,56 @@ const File = ({ file, triggerRenameRefresh }) => {
 /** Component rendering the list of files */
 export default function Files() {
 
-  // TODO: Replace this polling-like implementation according to task (2)
-  const [renamedOccurred, updateRename] = useState(false);
-  const files = useFiles();
+  // Stateful hooks for when a rename occurs and the sort order. Sort order is ascending by default
+  const [renamedOccurred, updateRenameOccurred] = useState(false);
+  const [sortOrder, setSortOrder] = useState(ASCENDING);
+
+  // List of files
+  const files = useFiles(sortOrder);
 
   /** Trigerred when a file finishes executing a version rename and refreshes the file list */
-  const triggerRenameRefresh = () => updateRename(true);
+  const triggerRenameRefresh = () => updateRenameOccurred(true);
+
+  /** Handles sort button click */
+  const onSortClick = () => {
+
+    // If sort order is ascending, toggle it to descending
+    if (sortOrder === ASCENDING) setSortOrder(DESCENDING);
+
+    // Otherwise, if it's descending, toggle to ascending
+    else if (sortOrder === DESCENDING) setSortOrder(ASCENDING);
+  };
 
   /** Hook that listens for a save being trigged */
   useEffect(() => {
 
     // If a rename occurred, reset it back to default
     if (renamedOccurred) {
-      updateRename(false);
+      updateRenameOccurred(false);
     }
 
-  }, [files]);
+  }, [renamedOccurred]);
+
+  const sortButtonText = (sortOrder === ASCENDING)
+    ? "Sort Z - A" // Display text to sort descending when the sort order is ascending
+    : "Sort A - Z" // Display text to sort ascending when the sort order is descending
 
   return (
     <div className={styles.fileContainer}>
-      {/** Display the list of files */}
 
 
       {/* TODO: Implement sort feature according to task (3) */}
-      < button > Sort A - Z / Z - A</button >
-      {files.map(file => <File file={file} key={file.id} triggerRenameRefresh={triggerRenameRefresh} />)}
+      <button onClick={onSortClick}>
+      {sortButtonText}
+      </button>
+
+      {/** Display the list of files */}
+      {files.map(file =>
+        <File
+          file={file}
+          key={file.id}
+          triggerRenameRefresh={triggerRenameRefresh}
+        />)}
 
       {/* TODO: Add a button to add a new file according to task (5) */}
     </div >

@@ -1,3 +1,5 @@
+import { ASCENDING, DESCENDING } from './constants/sortOrders';
+
 const files = [
   {
     id: 'the-file-id-1',
@@ -22,8 +24,53 @@ const files = [
   },
 ];
 
-export async function getFiles() {
-  return files;
+/** Handles returning the files in a sorted order. Default sort is ascending.
+ * Sorts the file list using the version of the file at index 0 of the versions list
+ */
+export async function getFiles(sortOrder = ASCENDING) {
+
+  // Get copy of our files list so as to not overwrite the above constant -- as Array.sort sorts a list in place
+  const fileList = [...files];
+
+  // If the sort order is ascending, sort it by file name ascending
+  if (sortOrder === ASCENDING) {
+    return fileList.sort((a, b) => {
+
+      const nameA = a.versions[0].name;
+      const nameB = b.versions[0].name;
+
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+
+    });
+  }
+
+  // Any other case will be descending
+  else if (sortOrder === DESCENDING) {
+    return fileList.sort((a, b) => {
+
+      const nameA = a.versions[0].name;
+      const nameB = b.versions[0].name;
+
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+
+      // names must be equal
+      return 0;
+
+    });
+  }
 }
 
 export async function addFile(name) {

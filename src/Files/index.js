@@ -22,7 +22,10 @@ const File = ({ file, triggerRenameRefresh }) => {
 
       {/** Displays the name of the current version of the file and button for renaming */}
       <div className={styles.fileHeader}>
-        <strong>📁 {file.versions[0].name}</strong>
+        <strong>
+          <span role="img" aria-label="">📁</span>
+          {file.versions[0].name}
+        </strong>
         <button className={styles.renameBtn} onClick={onRename}>Rename</button>
       </div>
 
@@ -47,8 +50,10 @@ export default function Files() {
   const [renamedOccurred, updateRenameOccurred] = useState(false);
   const [sortOrder, setSortOrder] = useState(ASCENDING);
 
+  useEffect(() => { if (renamedOccurred) updateRenameOccurred(false); }, [renamedOccurred]);
+
   // List of files
-  const files = useFiles(sortOrder);
+  const files = useFiles(sortOrder, renamedOccurred);
 
   /** Trigerred when a file finishes executing a version rename and refreshes the file list */
   const triggerRenameRefresh = () => updateRenameOccurred(true);
@@ -63,16 +68,6 @@ export default function Files() {
     else if (sortOrder === DESCENDING) setSortOrder(ASCENDING);
   };
 
-  /** Hook that listens for a save being trigged */
-  useEffect(() => {
-
-    // If a rename occurred, reset it back to default
-    if (renamedOccurred) {
-      updateRenameOccurred(false);
-    }
-
-  }, [renamedOccurred]);
-
   const sortButtonText = (sortOrder === ASCENDING)
     ? "Sort Z - A" // Display text to sort descending when the sort order is ascending
     : "Sort A - Z" // Display text to sort ascending when the sort order is descending
@@ -80,10 +75,9 @@ export default function Files() {
   return (
     <div className={styles.fileContainer}>
 
-
       {/* TODO: Implement sort feature according to task (3) */}
       <button onClick={onSortClick}>
-      {sortButtonText}
+        {sortButtonText}
       </button>
 
       {/** Display the list of files */}

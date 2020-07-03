@@ -36,8 +36,8 @@ export async function getFiles(sortOrder = ASCENDING) {
   if (sortOrder === ASCENDING) {
     return fileList.sort((a, b) => {
 
-      const nameA = a.versions[0].name;
-      const nameB = b.versions[0].name;
+      const nameA = a.versions[0].name.toLowerCase();
+      const nameB = b.versions[0].name.toLowerCase();
 
       if (nameA < nameB) {
         return -1;
@@ -56,8 +56,8 @@ export async function getFiles(sortOrder = ASCENDING) {
   else if (sortOrder === DESCENDING) {
     return fileList.sort((a, b) => {
 
-      const nameA = a.versions[0].name;
-      const nameB = b.versions[0].name;
+      const nameA = a.versions[0].name.toLowerCase();
+      const nameB = b.versions[0].name.toLowerCase();
 
       if (nameA < nameB) {
         return 1;

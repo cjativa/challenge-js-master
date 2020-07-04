@@ -79,29 +79,27 @@ export async function addFile(name) {
   // Looks like the file id's follow the format "the-file-id-X"
   // So let's figure out this new file's id
   const fileToAddId = (() => {
+    const idText = "the-file-id-";
 
     // Get the last file object - as it should have the latest id, and get the id from it
-    const lastFileId = files[-1].id;
-    const indexOfId = lastFileId.length - lastFileId.indexOf('the-file-id-');
+    const lastFileId = files[files.length - 1].id;
+    const latestIdNum = lastFileId.substring(0 + idText.length, lastFileId.length);
 
-    const latestIdNum = lastFileId[indexOfId];
-    console.log(`The latest id is ${latestIdNum}`);
-
-    return latestIdNum + 1;
+    // Get the increment of it and return the new file's constructed id string
+    const newId = parseInt(latestIdNum) + 1;
+    return `${idText}${newId}`;
   })();
 
   // New file object to add
   const fileToAdd = {
-    id: 'the-file-id-2',
+    id: fileToAddId,
     versions: [
       { id: 0, name } // The version id should always start at 0 for new file
     ]
-  }
+  };
 
-
-
-  const updatedFileList = [...files, fileToAdd];
-
+  files.push(fileToAdd);
+  console.log(files);
 }
 
 /** Adds a new version to the version list of a file */

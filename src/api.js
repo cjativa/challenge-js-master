@@ -99,7 +99,6 @@ export async function addFile(name) {
   };
 
   files.push(fileToAdd);
-  console.log(files);
 }
 
 /** Adds a new version to the version list of a file */

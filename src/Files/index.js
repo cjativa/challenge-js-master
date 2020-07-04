@@ -6,14 +6,14 @@ import { ASCENDING, DESCENDING } from '../constants/sortOrders';
 import styles from './index.module.css';
 
 /** Component representing the File object */
-const File = ({ file, triggerRenameRefresh }) => {
+const File = ({ file, triggerRefresh }) => {
 
   /** Called when the "Rename" button is clicked, handles renaming an existing file */
   const onRename = () => {
     const newName = window.prompt('Rename this file');
     addVersion(file.id, newName);
 
-    triggerRenameRefresh();
+    triggerRefresh();
   };
 
   /** Get the name of the latest version's file  name */
@@ -58,18 +58,19 @@ const File = ({ file, triggerRenameRefresh }) => {
 export default function Files() {
 
   // Stateful hooks for when a rename occurs and the sort order. Sort order is ascending by default
-  const [renamedOccurred, updateRenameOccurred] = useState(false);
+  const [refreshOccurred, updateRefreshOccurred] = useState(false);
   const [sortOrder, setSortOrder] = useState(ASCENDING);
 
+  /** Listens for refreshes having occurred */
   useEffect(() => {
-    if (renamedOccurred) updateRenameOccurred(false);
-  }, [renamedOccurred]);
+    if (refreshOccurred) updateRefreshOccurred(false);
+  }, [refreshOccurred]);
 
   // List of files
-  const files = useFiles(sortOrder, renamedOccurred);
+  const files = useFiles(sortOrder, refreshOccurred);
 
   /** Trigerred when a file finishes executing a version rename and refreshes the file list */
-  const triggerRenameRefresh = () => updateRenameOccurred(true);
+  const triggerRefresh = () => updateRefreshOccurred(true);
 
   /** Handles sort button click */
   const onSortClick = () => {
@@ -85,6 +86,9 @@ export default function Files() {
   const onAddClick = () => {
     const newFileName = window.prompt('Enter the name of the file');
     addFile(newFileName);
+
+    // An addition of a file should trigger a refresh
+    triggerRefresh();
   };
 
   /** Determines the current text to display in the sort button */
@@ -105,7 +109,7 @@ export default function Files() {
         <File
           file={file}
           key={file.id}
-          triggerRenameRefresh={triggerRenameRefresh}
+          triggerRefresh={triggerRefresh}
         />)}
 
       {/* TODO: Add a button to add a new file according to task (5) */}

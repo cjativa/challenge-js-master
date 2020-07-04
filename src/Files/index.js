@@ -48,6 +48,7 @@ const File = ({ file, triggerRefresh }) => {
         ))}
       </ul>
 
+      {/** Display the id of this file and number of versions */}
       <span className={styles.idText}>File ID: <em>{file.id}</em></span>
       <span className={styles.revisionNumber}>Number of revisions: {file.versions.length}</span>
     </div>

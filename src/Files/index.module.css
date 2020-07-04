@@ -28,6 +28,12 @@
   font-weight: bold;
 }
 
+.sortBtn:hover {
+  color: white;
+
+  background: #29b1cd;
+}
+
 .renameBtn {
   background: #29b1cd;
   color: white;

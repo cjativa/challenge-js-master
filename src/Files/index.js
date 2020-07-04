@@ -16,6 +16,7 @@ const File = ({ file, triggerRenameRefresh }) => {
     triggerRenameRefresh();
   };
 
+  /** Get the name of the latest version's file  name */
   const currentFileVersionName = file.versions[0].name;
 
   return (

@@ -73,8 +73,35 @@ export async function getFiles(sortOrder = ASCENDING) {
   }
 }
 
+/** Adds a new file to the entire list */
 export async function addFile(name) {
-  // TODO: Implement this API to add a new file according to task (5).
+
+  // Looks like the file id's follow the format "the-file-id-X"
+  // So let's figure out this new file's id
+  const fileToAddId = (() => {
+
+    // Get the last file object - as it should have the latest id, and get the id from it
+    const lastFileId = files[-1].id;
+    const indexOfId = lastFileId.length - lastFileId.indexOf('the-file-id-');
+
+    const latestIdNum = lastFileId[indexOfId];
+    console.log(`The latest id is ${latestIdNum}`);
+
+    return latestIdNum + 1;
+  })();
+
+  // New file object to add
+  const fileToAdd = {
+    id: 'the-file-id-2',
+    versions: [
+      { id: 0, name } // The version id should always start at 0 for new file
+    ]
+  }
+
+
+
+  const updatedFileList = [...files, fileToAdd];
+
 }
 
 /** Adds a new version to the version list of a file */

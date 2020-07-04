@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useFiles } from './use-files';
-import { addVersion, addFile, deleteFile } from '../api';
+import APIFunctions from '../api';
 import { ASCENDING, DESCENDING } from '../constants/sortOrders';
 import styles from './index.module.css';
 
@@ -11,14 +11,14 @@ const File = ({ file, triggerRefresh }) => {
   /** Called when the "Rename" button is clicked, handles renaming an existing file */
   const onRename = () => {
     const newName = window.prompt('Rename this file');
-    addVersion(file.id, newName);
+    APIFunctions.addVersion(file.id, newName);
 
     triggerRefresh();
   };
 
   /** Handles delete button click */
   const onDelete = () => {
-    deleteFile(file.id);
+    APIFunctions.deleteFile(file.id);
     triggerRefresh();
   };
 
@@ -94,7 +94,7 @@ export default function Files() {
   /** Handles add file button click */
   const onAddClick = () => {
     const newFileName = window.prompt('Enter the name of the file');
-    addFile(newFileName);
+    APIFunctions.addFile(newFileName);
 
     // An addition of a file should trigger a refresh
     triggerRefresh();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useFiles } from './use-files';
-import { addVersion, addFile } from '../api';
+import { addVersion, addFile, deleteFile } from '../api';
 import { ASCENDING, DESCENDING } from '../constants/sortOrders';
 import styles from './index.module.css';
 
@@ -13,6 +13,12 @@ const File = ({ file, triggerRefresh }) => {
     const newName = window.prompt('Rename this file');
     addVersion(file.id, newName);
 
+    triggerRefresh();
+  };
+
+  /** Handles delete button click */
+  const onDelete = () => {
+    deleteFile(file.id);
     triggerRefresh();
   };
 
@@ -50,7 +56,9 @@ const File = ({ file, triggerRefresh }) => {
 
       {/** Display the id of this file and number of versions */}
       <span className={styles.idText}>File ID: <em>{file.id}</em></span>
-      <span className={styles.revisionNumber}>Number of revisions: {file.versions.length}</span>
+      <span className={styles.revisionNumber}>Number of revisions: {file.versions.length}
+        <span className={styles.delete} onClick={onDelete}>🗑️</span>
+      </span>
     </div>
   );
 }

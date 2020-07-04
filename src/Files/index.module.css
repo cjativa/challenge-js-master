@@ -28,7 +28,8 @@
   font-weight: bold;
 }
 
-.sortBtn:hover, .addBtn:hover {
+.sortBtn:hover,
+.addBtn:hover {
   color: white;
   background: #29b1cd;
 }
@@ -56,7 +57,8 @@
   justify-content: space-between;
 }
 
-.revisionNumber, .idText {
+.revisionNumber,
+.idText {
   display: block;
   font-size: 12px;
 }
@@ -72,4 +74,13 @@
 
   display: grid;
   row-gap: 1.5em;
+}
+
+.delete {
+  float: right;
+  font-size: 22px;
+}
+
+.delete:hover {
+  cursor: pointer;
 }

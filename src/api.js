@@ -53,19 +53,28 @@ export async function getFiles(sortOrder = ASCENDING) {
 /** Adds a new file to the entire list */
 export async function addFile(name) {
 
-  // Looks like the file id's follow the format "the-file-id-X"
-  // So let's figure out this new file's id
-  const fileToAddId = (() => {
-    const idText = "the-file-id-";
+  const idText = "the-file-id-";
+  let fileToAddId;
 
-    // Get the last file object - as it should have the latest id, and get the id from it
-    const lastFileId = files[files.length - 1].id;
-    const latestIdNum = lastFileId.substring(0 + idText.length, lastFileId.length);
+  // If our files list has no files (which would occur after deleting all our files) -- we'll start the id at 0
+  if (files.length == 0) { fileToAddId = `${idText}0`; }
 
-    // Get the increment of it and return the new file's constructed id string
-    const newId = parseInt(latestIdNum) + 1;
-    return `${idText}${newId}`;
-  })();
+  // Otherwise, we have existing files, so the id should be the increment of the latest id
+  else {
+
+    // Looks like the file id's follow the format "the-file-id-X"
+    // So let's figure out this new file's id
+    fileToAddId = (() => {
+
+      // Get the last file object - as it should have the latest id, and get the id from it
+      const lastFileId = files[files.length - 1].id;
+      const latestIdNum = lastFileId.substring(0 + idText.length, lastFileId.length);
+
+      // Get the increment of it and return the new file's constructed id string
+      const newId = parseInt(latestIdNum) + 1;
+      return `${idText}${newId}`;
+    })();
+  }
 
   // New file object to add
   const fileToAdd = {
@@ -80,7 +89,6 @@ export async function addFile(name) {
 
 /** Adds a new version to the version list of a file */
 export async function addVersion(fileId, name) {
-  // TODO: Insert the new version on the beginning of the stack according to task (1)
 
   // Find the file to add the version to
   const file = files.find(f => f.id === fileId);
@@ -91,4 +99,12 @@ export async function addVersion(fileId, name) {
   // Add the new version to the top of the stack instead of end
   const newVersion = { id: versionId, name };
   file.versions = [newVersion, ...file.versions]
+}
+
+/** Accepts a file id and deletes the specified file from the list */
+export async function deleteFile(fileId) {
+
+  // Find the file to delete and delete it
+  const fileIndex = files.findIndex(f => f.id === fileId);
+  files.splice(fileIndex, 1);
 }

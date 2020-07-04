@@ -122,9 +122,13 @@ export default function Files() {
         />)}
 
       {/* TODO: Add a button to add a new file according to task (5) */}
-      <button className={`${styles.btn} ${styles.addBtn}`} onClick={onAddClick}>
-        New file 📄
+      <div className={styles.actionBar}>
+        <span className={styles.totalFiles}>Total number of files: {files.length} </span>
+        <button className={`${styles.btn} ${styles.addBtn}`} onClick={onAddClick}>
+          New file 📄
       </button>
+      </div>
+
     </div >
   );
 }

@@ -85,3 +85,12 @@
 .delete:hover {
   cursor: pointer;
 }
+
+.actionBar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalFiles {
+  margin-top: auto;
+}

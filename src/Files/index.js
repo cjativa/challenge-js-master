@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useFiles } from './use-files';
-import { addVersion } from '../api';
+import { addVersion, addFile } from '../api';
 import { ASCENDING, DESCENDING } from '../constants/sortOrders';
 import styles from './index.module.css';
 
@@ -48,7 +48,8 @@ const File = ({ file, triggerRenameRefresh }) => {
         ))}
       </ul>
 
-      <span className={styles.revisionNumber}>Number of revisions {file.versions.length}</span>
+      <span className={styles.idText}>File ID: <em>{file.id}</em></span>
+      <span className={styles.revisionNumber}>Number of revisions: {file.versions.length}</span>
     </div>
   );
 }
@@ -80,9 +81,16 @@ export default function Files() {
     else if (sortOrder === DESCENDING) setSortOrder(ASCENDING);
   };
 
+  /** Handles add file button click */
+  const onAddClick = () => {
+    const newFileName = window.prompt('Enter the name of the file');
+    addFile(newFileName);
+  };
+
+  /** Determines the current text to display in the sort button */
   const sortButtonText = (sortOrder === ASCENDING)
-    ? "Sort Z - A" // Text to sort descending when the sort order is presently   ascending
-    : "Sort A - Z" // Text to sort ascending when the sort order is presently descending
+    ? "Sort Z - A" // For when the sort order is presently ascending
+    : "Sort A - Z" // For when the sort order is presently descending
 
   return (
     <div className={styles.fileContainer}>
@@ -101,6 +109,9 @@ export default function Files() {
         />)}
 
       {/* TODO: Add a button to add a new file according to task (5) */}
+      <button className={`${styles.btn} ${styles.addBtn}`} onClick={onAddClick}>
+        New file 📄
+      </button>
     </div >
   );
 }

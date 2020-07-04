@@ -28,10 +28,18 @@
   font-weight: bold;
 }
 
-.sortBtn:hover {
+.sortBtn:hover, .addBtn:hover {
   color: white;
-
   background: #29b1cd;
+}
+
+.addBtn {
+  width: fit-content;
+  justify-self: end;
+
+  background: white;
+  color: #29b1cd;
+  border: 1px solid #94dceb;
 }
 
 .renameBtn {
@@ -48,7 +56,8 @@
   justify-content: space-between;
 }
 
-.revisionNumber {
+.revisionNumber, .idText {
+  display: block;
   font-size: 12px;
 }
 

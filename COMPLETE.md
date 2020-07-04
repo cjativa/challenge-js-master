@@ -45,4 +45,12 @@ I did add styling into the application. I know this is not part of the requireme
 
 I also added indicators of the current number of revisions a file has had, as well as display the id of that file. There is also an indicator that denotes which file version is the latest.
 
+I also did add each of the API functions into a module called APIFunctions in order to make it easier to manage and import/export functions of the API by being able to import the module as a whole, rather than having to import each individual function.
+
 Lastly, I also added the ability to delete an existing file, and then start the list again from scratch. Feel free to try it out.
+
+I deployed this online as well and you can take a look here [Challenge JS Master](https://Create-React-App--cjativa1.repl.co).
+
+If, for whatever reason that link is not available, you can just pull down this source code and run `yarn start`
+
+Thank you!

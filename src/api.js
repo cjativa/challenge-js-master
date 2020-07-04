@@ -1,28 +1,5 @@
 import { ASCENDING, DESCENDING } from './constants/sortOrders';
-
-const files = [
-  {
-    id: 'the-file-id-1',
-    versions: [
-      { id: 1, name: 'test.txt' },
-      { id: 0, name: 'test.txt' },
-    ],
-  },
-  {
-    id: 'the-file-id-2',
-    versions: [
-      { id: 1, name: 'recipes.doc' },
-      { id: 0, name: 'recipes.doc' },
-    ],
-  },
-  {
-    id: 'the-file-id-3',
-    versions: [
-      { id: 1, name: 'picture.png' },
-      { id: 0, name: 'photo.png' },
-    ],
-  },
-];
+import { files } from './constants/baseFiles';
 
 /** Handles returning the files in a sorted order. Default sort is ascending.
  * Sorts the file list using the version of the file at index 0 of the versions list

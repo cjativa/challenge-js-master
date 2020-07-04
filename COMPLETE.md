@@ -41,7 +41,7 @@ This repository contains the completed code for the `challenge-js-master` implem
     
 # Additional
 
-I did add styling into the application. I know this is not part of the requirements, but I have no problem going the extra mile to create a nice and enjoyable UI.
+I did add styling into the application. I know this is not part of the requirements, but I have no problem going the extra mile to create a nice and enjoyable UI. I'd have opted for SASS, but I continued on with the CSS Modules already being used with the components.
 
 I also added indicators of the current number of revisions a file has had, as well as display the id of that file. There is also an indicator that denotes which file version is the latest.
 
